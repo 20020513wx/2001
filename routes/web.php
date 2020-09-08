@@ -22,6 +22,7 @@ Route::prefix("admin/brand")->group(function(){
     Route::get("edit/{brand_id}","Admin\BrandController@edit");//修改视图
     Route::post("update/{brand_id}","Admin\BrandController@update");//修改执行
     Route::any("update2","Admin\BrandController@update2");//即点即改
+    Route::any("page","Admin\BrandController@page");//分页
 });
 
 

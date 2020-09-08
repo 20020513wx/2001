@@ -10,8 +10,20 @@ class BrandController extends Controller
 {
     //品牌展示
     public function index(){
-        $brandInfo=Brand::OrderBy("brand_id","desc")->paginate(3);
-        return view("admin.brand.index",['brandInfo'=>$brandInfo]);
+        $brand_name=request()->brand_name;
+        $where=[];
+        if($brand_name){
+            $where[]=["brand_name","like","%$brand_name%"];
+        }
+        $brand_url=request()->brand_url;
+        if($brand_url){
+            $where[]=["brand_url","like","%$brand_url%"];
+        }
+        $brandInfo=Brand::OrderBy("brand_id","desc")->where($where)->paginate(3);
+        if(request()->ajax()){
+            return view("admin.brand.page",['brandInfo'=>$brandInfo,'brand_name'=>$brand_name,'brand_url'=>$brand_url]);
+        }
+        return view("admin.brand.index",['brandInfo'=>$brandInfo,'brand_name'=>$brand_name,'brand_url'=>$brand_url]);
     }
     //品牌添加
     public function create(){
@@ -119,4 +131,5 @@ class BrandController extends Controller
             return redirect("admin/brand/index");
         }
     }
+    
 }
