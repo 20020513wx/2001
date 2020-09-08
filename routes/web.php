@@ -17,8 +17,11 @@ Route::get("/","Admin\GoodsController@index");
 Route::prefix("admin/brand")->group(function(){
     Route::get("create","Admin\BrandController@create");//添加
     Route::post("store","Admin\BrandController@store");//添加执行
-
     Route::get("index","Admin\BrandController@index");//列表
+    Route::get("delete/{brand_id}","Admin\BrandController@delete");//删除
+    Route::get("edit/{brand_id}","Admin\BrandController@edit");//修改视图
+    Route::post("update/{brand_id}","Admin\BrandController@update");//修改执行
+    Route::any("update2","Admin\BrandController@update2");//即点即改
 });
 
 
