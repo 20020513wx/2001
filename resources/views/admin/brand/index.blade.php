@@ -33,10 +33,8 @@
             <tr>
                 <td><input type="checkbox" name="abox" class="box"></td>
                 <td brand_id="{{$v->brand_id}}">{{$v->brand_id}}</td>
-                <td class="brand_name">{{$v->brand_name}} 
-                    <span>
-                        
-                    </span>
+                <td brand_id="{{$v->brand_id}}">
+                    <span class="brand_name">{{$v->brand_name}} </span>
                 </td>
                 <td>{{$v->brand_url}}</td>
                 <td><img src="/upload/{{$v->brand_logo}}"></td>
@@ -58,26 +56,39 @@
 <script src="/jquery.js"></script>
 <script>
     $(function(){
-        //即点即改
+        //品牌名称即点即改
         $(document).on("click",".brand_name",function(){
             var _this=$(this)
-            var brand_id=_this.prev().attr("brand_id")
-            _this.children().html("<input type='text' class='bname'>");
-            $(".bname").blur(function(){
+            
+            var vals=_this.text();
+            _this.parent().html('<input type="text" class="bname" value='+vals+'>');
+            $(".bname").val('').focus().val(vals)
+        });
+        //品牌名称即点即改
+        $(document).on("blur",".bname",function(){
+            var _this=$(this)
                 var val=$(".bname").val();
-                _this.children().html("");
+                if(val==""){
+                    alert("修改的内容不能为空")
+                    return false;
+                }
+                var brand_id=_this.parent().attr("brand_id")
                 $.ajax({
                     url:"{{url('admin/brand/update2')}}",
                     data:{brand_id:brand_id,val:val},
                     type:"post",
                     success:function(res){
+                        // console.log(res)
                         if(res=="ok"){
-                            _this.text(val);
+                            _this.parent().html('<span class="brand_name">'+val+'</span>');
+                        }else if(res=="err"){
+                            alert("品牌名称已存在");
+                        }else{
+                            alert("修改失败");
                         }
                     }
                 })
             })
-        })
         //点击删除
             $(document).on("click",".delete",function(){
                 var box=$(".box:checked");

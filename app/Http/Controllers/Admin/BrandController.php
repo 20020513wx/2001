@@ -117,9 +117,18 @@ class BrandController extends Controller
         $where=[
             ["brand_id","=",$brand_id]
         ];
+        $wheres=[
+            ["brand_name","=",$val]
+        ];
+        $info=Brand::where($wheres)->count();
+        if($info){
+            echo "err";die;
+        }
         $res=Brand::where($where)->update(["brand_name"=>$val]);
         if($res){
-            echo "ok";
+            echo "ok";die;
+        }else{
+            echo "no";die;
         }
     }
     //批量删除
