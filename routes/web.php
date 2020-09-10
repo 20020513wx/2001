@@ -10,8 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//后台登录
+Route::any("admin/login","Admin\LoginController@login");//登录视图
+Route::any("admin/loginDo","Admin\LoginController@loginDo");//登录执行
+Route::any("admin/reg","Admin\LoginController@reg");//注册视图
+Route::any("admin/regDo","Admin\LoginController@regDo");//注册执行
+Route::any("admin/quit","Admin\LoginController@quit");//退出登录
+
 //商品模块
 Route::get("/","Admin\GoodsController@index");
+Route::prefix("admin/goods")->group(function(){
+    Route::get("create","Admin\GoodsController@create");//添加
+});
 
 //品牌模块
 Route::prefix("admin/brand")->group(function(){
@@ -27,7 +37,13 @@ Route::prefix("admin/brand")->group(function(){
 
 
 //分类模块
-Route::get("/","Admin\CategoryController@index");
+Route::prefix("admin/category")->group(function(){
+    Route::get("create","Admin\CategoryController@create");//添加
+    Route::get("index","Admin\CategoryController@index");//列表
+});
 
 //管理员模块
-Route::get("/","Admin\AdminController@index");
+Route::prefix("admin/admin")->group(function(){
+    Route::get("create","Admin\AdminController@create");//添加
+    Route::get("index","Admin\AdminController@index");//列表
+});

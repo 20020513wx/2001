@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title','主页')
+@section('title','品牌列表')
 @section('content')
 
 <!-- class="layui-form" -->

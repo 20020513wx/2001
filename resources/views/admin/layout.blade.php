@@ -36,7 +36,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item"><a href="{{url('admin/quit')}}">退了</a></li>
     </ul>
   </div>
   
@@ -47,8 +47,8 @@
         <li class="layui-nav-item">
           <a href="javascript:;">商品</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">商品列表</a></dd>
-            <dd><a href="javascript:;">商品添加</a></dd>
+            <dd><a href="{{url('/')}}">商品列表</a></dd>
+            <dd><a href="{{url('admin/goods/create')}}">商品添加</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
@@ -61,15 +61,15 @@
         <li class="layui-nav-item">
           <a href="javascript:;">分类</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">分类列表</a></dd>
-            <dd><a href="javascript:;">分类添加</a></dd>
+            <dd><a href="{{url('admin/category/index')}}">分类列表</a></dd>
+            <dd><a href="{{url('admin/category/create')}}">分类添加</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">管理员管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">管理员列表</a></dd>
-            <dd><a href="javascript:;">管理员添加</a></dd>
+            <dd><a href="{{url('admin/admin/index')}}">管理员列表</a></dd>
+            <dd><a href="{{url('admin/admin/create')}}">管理员添加</a></dd>
           </dl>
         </li>
       </ul>

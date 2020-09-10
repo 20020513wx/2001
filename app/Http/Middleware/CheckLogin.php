@@ -17,7 +17,7 @@ class CheckLogin
     {
         $userInfo=session('userInfo');
         if(empty($userInfo)){
-            return redirect("/")->with("msg","请先登录");
+            return redirect("admin/login")->with("msg","请先登录");
         }
         return $next($request);
     }
