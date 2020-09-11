@@ -44,6 +44,11 @@ Route::prefix("admin/category")->group(function(){
 
 //管理员模块
 Route::prefix("admin/admin")->group(function(){
-    Route::get("create","Admin\AdminController@create");//添加
+    Route::get("create","Admin\AdminController@create");//添加展示
     Route::get("index","Admin\AdminController@index");//列表
+    Route::post("store","Admin\AdminController@store");//添加
+    Route::get("decory/{id?}","Admin\AdminController@destroy");//删除
+    Route::get("edit/{id}","Admin\AdminController@edit");
+    Route::post("update/{id}","Admin\AdminController@update");
+    Route::get("change","Admin\AdminController@change");
 });

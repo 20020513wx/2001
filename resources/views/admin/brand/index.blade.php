@@ -54,6 +54,7 @@
     </table>
 </div>
 <script src="/jquery.js"></script>
+<script src="/static/admin/js/jquery.min.js"></script>
 <script>
     $(function(){
         //品牌名称即点即改
