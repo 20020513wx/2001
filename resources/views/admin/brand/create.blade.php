@@ -10,7 +10,7 @@
         <label class="layui-form-label">品牌名称</label>
         <div class="layui-input-block">
           <input type="text" name="brand_name" lay-verify="title" autocomplete="off" placeholder="请输入品牌名称" class="layui-input">
-          <font color="red">{{$errors->first("brand_name")}}</font>
+          <font color="red">{{$errors->first("admin_tel")}}</font>
         </div>
       </div>
       <div class="layui-form-item">
