@@ -78,7 +78,7 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <div style="padding: 15px;">@yield('content')</di[v>
+    <div style="padding: 15px;">@yield('content')</div>
   </div>
   
   <div class="layui-footer">
@@ -89,8 +89,9 @@
 <script src="/static/admin/layui.js"></script>
 <script>
 //JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
+layui.use(['element','form'], function(){
+  var element = layui.element,
+          form=layui.form;
   
 });
 </script>

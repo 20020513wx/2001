@@ -40,6 +40,9 @@ Route::prefix("admin/brand")->group(function(){
 Route::prefix("admin/category")->group(function(){
     Route::get("create","Admin\CategoryController@create");//添加
     Route::get("index","Admin\CategoryController@index");//列表
+    Route::post("store","Admin\CategoryController@store");//添加执行
+    Route::get("delete/{cate_id}","Admin\CategoryController@delete"); //删除
+
 });
 
 //管理员模块
@@ -47,3 +50,7 @@ Route::prefix("admin/admin")->group(function(){
     Route::get("create","Admin\AdminController@create");//添加
     Route::get("index","Admin\AdminController@index");//列表
 });
+
+//if(window.confirm('是否删除')){
+//    location.href="/admin/category/delete/"+cate_id;
+//}
