@@ -21,7 +21,6 @@ Route::any("admin/imageCode","Admin\LoginController@imageCode");//验证码
 Route::any("admin/getImageCodeUrl","Admin\LoginController@getImageCodeUrl");//验证码
 
 //商品模块
-Route::middleware("adminlogin")->get("/","Admin\GoodsController@index");
 Route::prefix("admin/goods")->middleware("adminlogin")->group(function(){
     Route::get("create","Admin\GoodsController@create");//添加
     Route::post("store",'Admin\GoodsController@store');//执行添加
