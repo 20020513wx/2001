@@ -21,6 +21,13 @@ Route::any("admin/quit","Admin\LoginController@quit");//退出登录
 Route::get("/","Admin\GoodsController@index");
 Route::prefix("admin/goods")->group(function(){
     Route::get("create","Admin\GoodsController@create");//添加
+    Route::post("store",'Admin\GoodsController@store');//执行添加
+    Route::get('/','Admin\GoodsController@index');//展示
+    Route::any("upload",'Admin\GoodsController@upload');//上传图片
+    Route::any("uploads",'Admin\GoodsController@uploads');//多文件上传
+    Route::any("destroy",'Admin\GoodsController@destroy');//删除
+    Route::any('edit/{id}','Admin\GoodsController@edit');//修改
+    Route::post('update/{id}','Admin\GoodsController@update');//执行修改
 });
 
 //品牌模块

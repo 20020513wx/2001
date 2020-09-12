@@ -78,7 +78,7 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <div style="padding: 15px;">@yield('content')</di[v>
+    <div style="padding: 15px;">@yield('content')</div>
   </div>
   
   <div class="layui-footer">
@@ -88,11 +88,49 @@
 </div>
 <script src="/static/admin/layui.js"></script>
 <script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
+  //JavaScript代码区域
+  layui.use(['element','form','upload'], function(){
+    var element = layui.element,
+            form = layui.form,
+            upload = layui.upload;
+    var $ = layui.jquery
+            ,upload = layui.upload;
+
+      //拖拽上传
+      upload.render({
+        elem: '#goods_test10'
+        ,url: '/admin/goods/uploads' //改成您自己的上传接口
+        ,done: function(res){
+          layer.msg(res.msg);
+          layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src',res.store_result);
+//                console.log(res)
+          layui.$('input[name="goods_img"]').val(res.store_result);
+        }
+      });
+
+    //多图片上传
+    upload.render({
+      elem: '#goods_test2'
+      ,url: '/admin/goods/uploads' //改成您自己的上传接口
+      ,multiple: true
+      ,before: function(obj){
+        //预读本地文件示例，不支持ie8
+        obj.preview(function(index, file, result){
+//          $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" height="100px" width="100px" >');
+//          layui.$('input[name="file"]').val(result);
+        });
+      }
+      ,done: function(res){
+        layer.msg(res.msg);
+        //上传完毕
+//        console.log(res["store_result"]);
+//        return;
+        $('#demo2').append('<img src="'+ res["store_result"] +'" class="layui-upload-img" height="150px" width="150px" >');
+        $("#demo2").append('<input type="hidden" name="goods_imgs[]" value="'+res["store_result"]+'">');
+      }
+    });
+
+  });
 </script>
 </body>
 </html>
