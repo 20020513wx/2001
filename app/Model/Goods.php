@@ -4,10 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Goods extends Model
 {
-    protected $table="admin";
-    protected $primaryKey="admin_id";
+    protected $table="goods";
+    protected $primaryKey="goods_id";
     public $timestamps=false;
     protected $guarded=[];
 }
