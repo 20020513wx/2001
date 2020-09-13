@@ -1,6 +1,5 @@
-@extends('admin.layout')
-@section('title','商品列表')
-@section('content')
+<?php $__env->startSection('title','商品列表'); ?>
+<?php $__env->startSection('content'); ?>
 
 <!-- class="layui-form" -->
 <span class="layui-breadcrumb">
@@ -14,7 +13,7 @@
     <form class="layui-form" action="/admin/goods" style="padding-bottom: 10px;padding-left: 10px;">
         商品名称：
         <div class="layui-input-inline">
-            <input type="text" name="goods_name"  class="layui-input" value="{{$goods['goods_name']??''}}" placeholder="请输入商品名称......">
+            <input type="text" name="goods_name"  class="layui-input" value="<?php echo e($goods['goods_name']??''); ?>" placeholder="请输入商品名称......">
         </div>
         <button type="submit" class="layui-btn">搜索</button>
     </form>
@@ -39,34 +38,34 @@
             </tr> 
         </thead>
         <tbody>
-        @foreach($data as $v)
-            <tr goods_id="{{$v->goods_id}}">
-                <td>{{$v->goods_id}}</td>
-                <td>{{$v->goods_name}}</td>
-                <td>{{$v->goods_price}}</td>
-                <td>{{$v->goods_num}}</td>
-                <td>{{$v->cate_name}}</td>
-                <td>{{$v->brand_name}}</td>
-                <td>@if($v->is_up == 1)是@else 否@endif</td>
-                <td>@if($v->is_new == 1)是@else 否@endif</td>
-                <td>@if($v->is_best == 1)是@else 否@endif</td>
-                <td>@if(!empty($v->goods_img)) <img src="{{$v->goods_img}}" width="50px"> @endif </td>
+        <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <tr goods_id="<?php echo e($v->goods_id); ?>">
+                <td><?php echo e($v->goods_id); ?></td>
+                <td><?php echo e($v->goods_name); ?></td>
+                <td><?php echo e($v->goods_price); ?></td>
+                <td><?php echo e($v->goods_num); ?></td>
+                <td><?php echo e($v->cate_name); ?></td>
+                <td><?php echo e($v->brand_name); ?></td>
+                <td><?php if($v->is_up == 1): ?>是<?php else: ?> 否<?php endif; ?></td>
+                <td><?php if($v->is_new == 1): ?>是<?php else: ?> 否<?php endif; ?></td>
+                <td><?php if($v->is_best == 1): ?>是<?php else: ?> 否<?php endif; ?></td>
+                <td><?php if(!empty($v->goods_img)): ?> <img src="<?php echo e($v->goods_img); ?>" width="50px"> <?php endif; ?> </td>
                 <td>
-                    @if(!empty($v->goods_imgs))
-                        @foreach($v->goods_imgs as $vv)
-                            <img src="{{$vv}}" width="50px">
-                        @endforeach
-                    @endif
+                    <?php if(!empty($v->goods_imgs)): ?>
+                        <?php $__currentLoopData = $v->goods_imgs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <img src="<?php echo e($vv); ?>" width="50px">
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
                 </td>
-                <td>{{$v->goods_desc}}</td>
+                <td><?php echo e($v->goods_desc); ?></td>
                 <td>
-                    <a href="/admin/goods/edit/{{$v->goods_id}}"><button type="button" class="layui-btn layui-btn-normal">修改</button></a>
+                    <a href="/admin/goods/edit/<?php echo e($v->goods_id); ?>"><button type="button" class="layui-btn layui-btn-normal">修改</button></a>
                     <button type="button" class="layui-btn layui-btn-danger del">删除</button>
                 </td>
             </tr>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <tr>
-            <td colspan="13">{{$data->appends($goods)->links('vendor.pagination.adminshop')}}</td>
+            <td colspan="13"><?php echo e($data->appends($goods)->links('vendor.pagination.adminshop')); ?></td>
         </tr>
         </tbody>
         
@@ -106,4 +105,5 @@
     })
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /wwwroot/2001/resources/views/admin/goods/index.blade.php ENDPATH**/ ?>

@@ -1,6 +1,5 @@
-@extends('admin.layout')
-@section('title','商品添加')
-@section('content')
+<?php $__env->startSection('title','商品添加'); ?>
+<?php $__env->startSection('content'); ?>
 
 
     <div style="padding: 15px;">
@@ -10,17 +9,17 @@
               <a><cite>商品添加</cite></a>
             </span>
       <center><h1>商品添加</h1></center>
-      @if ($errors->any())
+      <?php if($errors->any()): ?>
         <div class="alert alert-danger" style="padding-bottom: 20px; padding-left: 30px; background-color: pink">
           <ul>
-            @foreach ($errors->all() as $error)
-              <li style="color:#ff0000; padding-top: 10px;">{{ $error }}</li>
-            @endforeach
+            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <li style="color:#ff0000; padding-top: 10px;"><?php echo e($error); ?></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
         </div>
-      @endif
-      <form class="layui-form" action="{{url('admin/goods/store')}}" method="post" enctype="multipart/form-data" style="padding-top: 15px;">
-      @csrf
+      <?php endif; ?>
+      <form class="layui-form" action="<?php echo e(url('admin/goods/store')); ?>" method="post" enctype="multipart/form-data" style="padding-top: 15px;">
+      <?php echo csrf_field(); ?>
       <div class="layui-form-item">
         <label class="layui-form-label">商品名称：</label>
         <div class="layui-input-block">
@@ -46,9 +45,9 @@
             <div class="layui-input-inline">
               <select name="cate_id">
                 <option value="cate_id">请选择</option>
-                @foreach($cate_info as $v)
-                  <option value="{{$v->cate_id}}">{{str_repeat('—',$v->level*3)}}{{$v->cate_name}}</option>
-                @endforeach
+                <?php $__currentLoopData = $cate_info; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($v->cate_id); ?>"><?php echo e(str_repeat('—',$v->level*3)); ?><?php echo e($v->cate_name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
             </div>
           </div>
@@ -57,9 +56,9 @@
             <div class="layui-input-inline">
               <select name="brand_id">
                 <option value="">请选择</option>
-                @foreach($brand_data as $v)
-                  <option value="{{$v->brand_id}}">{{$v->brand_name}}</option>
-                @endforeach
+                <?php $__currentLoopData = $brand_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($v->brand_id); ?>"><?php echo e($v->brand_name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
             </div>
           </div>
@@ -120,4 +119,5 @@
   </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /wwwroot/2001/resources/views/admin/goods/create.blade.php ENDPATH**/ ?>

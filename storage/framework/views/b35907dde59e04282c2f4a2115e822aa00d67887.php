@@ -1,6 +1,5 @@
-@extends('admin.layout')
-@section('title','管理员列表')
-@section('content')
+<?php $__env->startSection('title','管理员列表'); ?>
+<?php $__env->startSection('content'); ?>
 
 <!-- class="layui-form" -->
 <div class="layui-form" style="padding: 15px;">
@@ -23,24 +22,25 @@
             </tr> 
         </thead>
         <tbody>
-            @foreach($admin as $v)
+            <?php $__currentLoopData = $admin; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td><input type="checkbox" name="admincheck[]" lay-skin="primary" value="{{$v->admin_id}}"></td>
-                <td>{{$v->admin_id}}</td>
-                <td id="{{$v->admin_id}}" oldval="{{$v->admin_name}}"><span class="admin_name">{{$v->admin_name}}</td>
-                <td>{{substr_replace($v->admin_tel,'****',3,4)}}</td>
-                <td>{{substr_replace($v->admin_email,'****',3,3)}}</td>
-                <td>{{date('Y-m-d H:i:s',$v->admin_time)}}</td>
+                <td><input type="checkbox" name="admincheck[]" lay-skin="primary" value="<?php echo e($v->admin_id); ?>"></td>
+                <td><?php echo e($v->admin_id); ?></td>
+                <td id="<?php echo e($v->admin_id); ?>" oldval="<?php echo e($v->admin_name); ?>"><span class="admin_name"><?php echo e($v->admin_name); ?></td>
+                <td><?php echo e(substr_replace($v->admin_tel,'****',3,4)); ?></td>
+                <td><?php echo e(substr_replace($v->admin_email,'****',3,3)); ?></td>
+                <td><?php echo e(date('Y-m-d H:i:s',$v->admin_time)); ?></td>
                 <td> 
-                    <a href="{{url('/admin/admin/edit/'.$v->admin_id)}}" class="layui-btn layui-btn-warm">修改</a>
-                    <!-- <a href="javascript:void(0)" onclick="if(confirm('确定删除此记录吗')){ location.href='{{url('/admin/admin/destroy/'.$v->admin_id)}}';}" class="layui-btn layui-btn-danger">删除</a> -->
-                    <a href="javascript:void(0)" onclick="deleteById({{$v->admin_id}})" class="layui-btn layui-btn-danger">删除</a>
+                    <a href="<?php echo e(url('/admin/admin/edit/'.$v->admin_id)); ?>" class="layui-btn layui-btn-warm">修改</a>
+                    <!-- <a href="javascript:void(0)" onclick="if(confirm('确定删除此记录吗')){ location.href='<?php echo e(url('/admin/admin/destroy/'.$v->admin_id)); ?>';}" class="layui-btn layui-btn-danger">删除</a> -->
+                    <a href="javascript:void(0)" onclick="deleteById(<?php echo e($v->admin_id); ?>)" class="layui-btn layui-btn-danger">删除</a>
                 </td>
             </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <tr>
             <td colspan="7">
-                {{$admin->links('vendor.pagination.adminshop')}}
+                <?php echo e($admin->links('vendor.pagination.adminshop')); ?>
+
                 <button type="button" class="layui-btn layui-btn-warm moredel">批量删除</button>
             </td>
         </tr>
@@ -129,4 +129,6 @@
         return false;
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /wwwroot/2001/resources/views/admin/admin/index.blade.php ENDPATH**/ ?>

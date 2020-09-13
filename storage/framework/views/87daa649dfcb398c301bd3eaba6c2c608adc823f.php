@@ -35,7 +35,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="{{url('admin/quit')}}">退了</a></li>
+      <li class="layui-nav-item"><a href="<?php echo e(url('admin/quit')); ?>">退了</a></li>
     </ul>
   </div>
   
@@ -46,29 +46,29 @@
         <li class="layui-nav-item">
           <a href="javascript:;">商品</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('/')}}">商品列表</a></dd>
-            <dd><a href="{{url('admin/goods/create')}}">商品添加</a></dd>
+            <dd><a href="<?php echo e(url('/')); ?>">商品列表</a></dd>
+            <dd><a href="<?php echo e(url('admin/goods/create')); ?>">商品添加</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">品牌</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/brand/index')}}">品牌列表</a></dd>
-            <dd><a href="{{url('admin/brand/create')}}">品牌添加</a></dd>
+            <dd><a href="<?php echo e(url('admin/brand/index')); ?>">品牌列表</a></dd>
+            <dd><a href="<?php echo e(url('admin/brand/create')); ?>">品牌添加</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">分类</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/category/index')}}">分类列表</a></dd>
-            <dd><a href="{{url('admin/category/create')}}">分类添加</a></dd>
+            <dd><a href="<?php echo e(url('admin/category/index')); ?>">分类列表</a></dd>
+            <dd><a href="<?php echo e(url('admin/category/create')); ?>">分类添加</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">管理员管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/admin/index')}}">管理员列表</a></dd>
-            <dd><a href="{{url('admin/admin/create')}}">管理员添加</a></dd>
+            <dd><a href="<?php echo e(url('admin/admin/index')); ?>">管理员列表</a></dd>
+            <dd><a href="<?php echo e(url('admin/admin/create')); ?>">管理员添加</a></dd>
           </dl>
         </li>
       </ul>
@@ -77,7 +77,7 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <div style="padding: 15px;">@yield('content')</div>
+    <div style="padding: 15px;"><?php echo $__env->yieldContent('content'); ?></div>
   </div>
   
   <div class="layui-footer">
@@ -132,4 +132,4 @@
   });
 </script>
 </body>
-</html>
+</html><?php /**PATH /wwwroot/2001/resources/views/admin/layout.blade.php ENDPATH**/ ?>
