@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Admin;
-
+use App\Model\Role;
+use App\Model\Adminrole;
+use DB;
 class AdminController extends Controller
 {
     //管理员列表
@@ -19,10 +21,11 @@ class AdminController extends Controller
     }
     //管理员添加
     public function create(){
-        return view("admin.admin.create");
+        $role=Role::all();
+        return view("admin.admin.create",['role'=>$role]);
     }
     public function store(Request $request){
-    	$request->validate([
+        $request->validate([
             'admin_name' => 'required|unique:admin',
             'admin_tel'=>'digits_between:10,11',
             'admin_email' => 'required',
@@ -35,15 +38,35 @@ class AdminController extends Controller
                 'admin_pwd.digits_between'=>'密码不能少于6位',
                 'admin_tel.digits_between'=>'手机号11位',
             ]);
-    	$post=$request->except('_token');
-    	//dd($post);
-    	$post['admin_time']=time();
-    	$post['admin_pwd']=encrypt($post['admin_pwd']);
-    	//dd($post);
-    	$admin=Admin::insert($post);
-    	if($admin){
-    		return redirect('/admin/admin/index');
-    	}
+        DB::beginTransaction();
+    	try {
+            
+            $role=$request->role;
+            $post=$request->except(['_token','role']);
+            //dd($post);
+            $post['admin_time']=time();
+            $post['admin_pwd']=encrypt($post['admin_pwd']);
+            //dd($post);
+            $admin=Admin::insertGetId($post);
+            if($admin){
+                //添加管理员角色表
+                if(count($role)){
+                    foreach($role as $v){
+                        $adminrole[]=[
+                            'admin_id'=>$admin,
+                            'role_id'=>$v
+                        ];
+                    }
+                    Adminrole::insert($adminrole);
+                }
+                DB::commit();
+                return redirect('/admin/admin/index');
+            }
+        } catch (\Exception $e) {
+            // dump($e->getMessage());
+            DB::rollBack();
+            return redirect('/admin/admin/create');
+        }
     }
     public function edit($id){
         $admin=Admin::find($id);

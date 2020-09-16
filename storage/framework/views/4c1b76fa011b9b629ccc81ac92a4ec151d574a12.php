@@ -1,10 +1,9 @@
-@extends('admin.layout')
-@section('title','分类添加')
-@section('content')
+<?php $__env->startSection('title','分类添加'); ?>
+<?php $__env->startSection('content'); ?>
 
     <div style="padding: 15px;">
-      <form class="layui-form" action="{{url('admin/category/store')}}" method="post" enctype="multipart/form-data">
-      @csrf
+      <form class="layui-form" action="<?php echo e(url('admin/category/store')); ?>" method="post" enctype="multipart/form-data">
+      <?php echo csrf_field(); ?>
         <div class="layui-form-item">
           <label class="layui-form-label">分类名称</label>
           <div class="layui-input-block">
@@ -16,10 +15,10 @@
           <label class="layui-form-label">单行选择框</label>
           <div class="layui-input-block">
             <select name="parent_id" lay-filter="aihao">
-              <option value="0">顶级分类</option>
-              @foreach($cate as $k=>$v)
-              <option value="{{$v->cate_id}}">{{str_repeat('--',$v->level*3)}}{{$v->cate_name}}</option>
-              @endforeach
+              <option value="">顶级分类</option>
+              <?php $__currentLoopData = $cate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k=>$v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <option value="<?php echo e($v->cate_id); ?>"><?php echo e(str_repeat('--',$v->level*3)); ?><?php echo e($v->cate_name); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
           </div>
         </div>
@@ -56,4 +55,5 @@
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /wwwroot/2001/resources/views/admin/category/create.blade.php ENDPATH**/ ?>

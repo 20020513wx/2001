@@ -281,5 +281,10 @@ class LoginController extends Controller
         imagedestroy($img);
         exit;
     }
+    //退出
+    public function quit(){
+        request()->session()->forget("adminInfo");
+        return redirect("admin/login");
+    }
         
 }

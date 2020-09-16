@@ -47,7 +47,7 @@ Route::prefix("admin/brand")->middleware("adminlogin")->group(function(){
 
 //分类模块
 Route::prefix("admin/category")->middleware("adminlogin")->group(function(){
-    Route::get("create","Admin\CategoryController@create");//添加
+    Route::any("create","Admin\CategoryController@create");//添加
     Route::get("index","Admin\CategoryController@index");//列表
     Route::post("store","Admin\CategoryController@store");//添加执行
     Route::get("delete/{cate_id}","Admin\CategoryController@delete"); //删除
@@ -63,4 +63,25 @@ Route::prefix("admin/admin")->middleware("adminlogin")->group(function(){
     Route::get("edit/{id}","Admin\AdminController@edit");
     Route::post("update/{id}","Admin\AdminController@update");
     Route::get("change","Admin\AdminController@change");
+});
+
+//角色管理
+Route::prefix("admin/role")->middleware("adminlogin")->group(function(){
+    Route::get("create","Admin\RoleController@create");//添加
+    Route::post("store","Admin\RoleController@store");//添加执行
+    Route::get("index","Admin\RoleController@index");//列表
+    Route::get("delete/{role_id}","Admin\RoleController@delete");//删除
+    Route::get("edit/{role_id}","Admin\RoleController@edit");//修改视图
+    Route::post("update/{role_id}","Admin\RoleController@update");//修改执行
+    Route::any("page","Admin\RoleController@page");//分页
+});
+//角色管理
+Route::prefix("admin/menu")->middleware("adminlogin")->group(function(){
+    Route::get("create","Admin\MenuController@create");//添加
+    Route::post("store","Admin\MenuController@store");//添加执行
+    Route::get("index","Admin\MenuController@index");//列表
+    Route::get("delete/{menu_id}","Admin\MenuController@delete");//删除
+    Route::get("edit/{menu_id}","Admin\MenuController@edit");//修改视图
+    Route::post("update/{menu_id}","Admin\MenuController@update");//修改执行
+    Route::any("page","Admin\MenuController@page");//分页
 });

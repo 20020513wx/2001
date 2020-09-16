@@ -1,20 +1,19 @@
-@extends('admin.layout')
-@section('title','管理员添加')
-@section('content')
+<?php $__env->startSection('title','管理员添加'); ?>
+<?php $__env->startSection('content'); ?>
 
 
     <div style="padding: 15px;">
-       @if ($errors->any())
+       <?php if($errors->any()): ?>
         <div class="alert alert-danger" style="padding-bottom: 20px;padding-left: 20px">
         <ul>
-        @foreach ($errors->all() as $error)
-        <li style="margin-top: 10px;color: #ff0000;">{{ $error }}</li>
-        @endforeach
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <li style="margin-top: 10px;color: #ff0000;"><?php echo e($error); ?></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
         </div>
-      @endif
-      <form class="layui-form" action="{{url('admin/admin/store')}}" method="post" enctype="multipart/form-data">
-      @csrf
+      <?php endif; ?>
+      <form class="layui-form" action="<?php echo e(url('admin/admin/store')); ?>" method="post" enctype="multipart/form-data">
+      <?php echo csrf_field(); ?>
       <div class="layui-form-item">
         <label class="layui-form-label">管理员名称:</label>
         <div class="layui-input-block">
@@ -46,9 +45,9 @@
       <div class="layui-form-item">
         <label class="layui-form-label">角色:</label>
         <div class="layui-input-block">
-        @foreach($role as $v)
-          <input type="checkbox" name="role[]" value="{{$v->role_id}}" title="{{$v->role_name}}">
-          @endforeach
+        <?php $__currentLoopData = $role; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <input type="checkbox" name="role[]" value="<?php echo e($v->role_id); ?>" title="<?php echo e($v->role_name); ?>">
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
       </div>
       <input type="submit" value="点击添加">
@@ -61,4 +60,5 @@
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /wwwroot/2001/resources/views/admin/admin/create.blade.php ENDPATH**/ ?>

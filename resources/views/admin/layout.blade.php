@@ -71,6 +71,20 @@
             <dd><a href="{{url('admin/admin/create')}}">管理员添加</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">角色管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="{{url('admin/role/index')}}">角色列表</a></dd>
+            <dd><a href="{{url('admin/role/create')}}">角色添加</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">菜单</a>
+          <dl class="layui-nav-child">
+            <dd><a href="{{url('admin/menu/index')}}">权限列表</a></dd>
+            <dd><a href="{{url('admin/menu/create')}}">权限添加</a></dd>
+          </dl>
+        </li>
       </ul>
     </div>
   </div>
