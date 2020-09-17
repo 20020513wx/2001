@@ -58,7 +58,7 @@ Route::prefix("admin/category")->middleware("adminlogin")->group(function(){
 Route::prefix("admin/admin")->middleware("adminlogin")->group(function(){
     Route::get("create","Admin\AdminController@create");//添加
     Route::get("index","Admin\AdminController@index");//列表
-    Route::post("store","Admin\AdminController@store");//添加
+    Route::post("store","Admin\AdminController@store");//添加执行
     Route::get("decory/{id?}","Admin\AdminController@destroy");//删除
     Route::get("edit/{id}","Admin\AdminController@edit");
     Route::post("update/{id}","Admin\AdminController@update");
@@ -75,7 +75,7 @@ Route::prefix("admin/role")->middleware("adminlogin")->group(function(){
     Route::post("update/{role_id}","Admin\RoleController@update");//修改执行
     Route::any("page","Admin\RoleController@page");//分页
 });
-//角色管理
+//权限管理
 Route::prefix("admin/menu")->middleware("adminlogin")->group(function(){
     Route::get("create","Admin\MenuController@create");//添加
     Route::post("store","Admin\MenuController@store");//添加执行

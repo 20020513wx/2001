@@ -15,7 +15,7 @@
           <label class="layui-form-label">单行选择框</label>
           <div class="layui-input-block">
             <select name="parent_id" lay-filter="aihao">
-              <option value="">顶级分类</option>
+              <option value="0">顶级分类</option>
               <?php $__currentLoopData = $cate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k=>$v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
               <option value="<?php echo e($v->cate_id); ?>"><?php echo e(str_repeat('--',$v->level*3)); ?><?php echo e($v->cate_name); ?></option>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

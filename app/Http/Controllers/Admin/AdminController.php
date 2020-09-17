@@ -8,6 +8,7 @@ use App\Model\Admin;
 use App\Model\Role;
 use App\Model\Adminrole;
 use DB;
+
 class AdminController extends Controller
 {
     //管理员列表
@@ -126,4 +127,7 @@ class AdminController extends Controller
             return redirect('/admin/admin/index');
         }
     }
+
+    
+
 }
