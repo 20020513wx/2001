@@ -21,8 +21,25 @@ class MenuController extends Controller
     }
     //菜单添加
     public function create(){
+        $menu=Menu::get();
+        $menu=$this->level($menu);
+        return view("admin.menu.create",["menu"=>$menu]);
+    }
+    //无限极分类
+    public static function level($data,$parent_id=0,$level=0){
         
-        return view("admin.menu.create");
+        if(empty($data)){
+            return;
+        }
+        static $array=[];
+        foreach($data as $k=>$v){
+            if($parent_id==$v->parent_id){
+                $v->level=$level;
+                $array[]=$v;
+                self::level($data,$v->menu_id,$level+1);
+            }
+        }
+        return $array;
     }
     //添加执行
     public function store(){
@@ -63,7 +80,9 @@ class MenuController extends Controller
             ["menu_id","=",$menu_id]
         ];
         $res=menu::where($where)->first();
-        return view("admin.menu.edit",["res"=>$res]);
+        $menu=Menu::get();
+        $menu=$this->level($menu);
+        return view("admin.menu.create",["menu"=>$menu,'res'=>$res]);
     }
     //修改执行
     public function update(){

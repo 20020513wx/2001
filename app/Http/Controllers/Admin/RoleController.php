@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Model\Role;
 use App\Model\Menu;
+use App\Model\Rolemenu;
 class RoleController extends Controller
 {
     //角色展示
@@ -22,26 +23,9 @@ class RoleController extends Controller
     }
     //角色添加
     public function create(){
-        $menu=Menu::get();
-        $menu=$this->level($menu);
-        return view("admin.role.create",["menu"=>$menu]);
+        return view("admin.role.create");
     }
-    //无限极分类
-    public static function level($data,$parent_id=0,$level=0){
-        
-        if(empty($data)){
-            return;
-        }
-        static $array=[];
-        foreach($data as $k=>$v){
-            if($parent_id==$v->parent_id){
-                $v->level=$level;
-                $array[]=$v;
-                self::level($data,$v->menu_id,$level+1);
-            }
-        }
-        return $array;
-    }
+    
     //添加执行
     public function store(){
         $data=request()->except("_token");
@@ -130,5 +114,61 @@ class RoleController extends Controller
         }else{
             echo "no";die;
         }
+    }
+    //添加权限
+    public function menu(){
+        $role_id=request()->role_id;
+        $menu=Menu::get();
+        $menu=$this->level($menu);
+        $where=[
+            ["role_id","=",$role_id]
+        ];
+        
+        $menuinfo=Rolemenu::where($where)->get();
+        $menu_id=[];
+        foreach($menuinfo as $k=>$v){
+            $menu_id[]=$menuinfo[$k]['menu_id'];
+        }
+        $menu_id=json_encode($menu_id);
+       // dd($menu_id);
+        return view("admin.role.menu",["menu"=>$menu,'role_id'=>$role_id,"menuinfo"=>$menuinfo,"menu_id"=>$menu_id]);
+    }
+    //添加权限执行
+    public function menuDo(){
+        $data=request()->all();
+        $role_id=request()->role_id;
+        if(isset($data['admincheck'])){
+            //删除原有的权限
+            $where=[
+                ["role_id","=",$role_id]
+            ];
+            Rolemenu::where($where)->delete();
+            $res=[];
+            foreach($data['admincheck'] as $menu_id){
+                $res[]=[
+                    'role_id'=>$role_id,
+                    'menu_id'=>$menu_id
+                ];
+            }
+            Rolemenu::insert($res);
+            return redirect("admin/role/index");
+        }
+        return redirect("admin/role/index");
+    }
+    //无限极分类
+    public static function level($data,$parent_id=0,$level=0){
+        
+        if(empty($data)){
+            return;
+        }
+        static $array=[];
+        foreach($data as $k=>$v){
+            if($parent_id==$v->parent_id){
+                $v->level=$level;
+                $array[]=$v;
+                self::level($data,$v->menu_id,$level+1);
+            }
+        }
+        return $array;
     }
 }

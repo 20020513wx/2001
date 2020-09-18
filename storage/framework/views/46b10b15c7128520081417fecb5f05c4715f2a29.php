@@ -25,6 +25,18 @@
           <input type="text" name="urls" lay-verify="title" autocomplete="off" placeholder="请输入路由别名" class="layui-input">
         </div>
       </div>
+      
+      <div class="layui-form-item">
+          <label class="layui-form-label">添加权限</label>
+          <div class="layui-input-block">
+            <select name="parent_id" lay-filter="aihao">
+              <option value="0">顶级权限</option>
+              <?php $__currentLoopData = $menu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k=>$v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <option value="<?php echo e($v->menu_id); ?>"><?php echo e(str_repeat('|--',$v->level)); ?><?php echo e($v->menu_name); ?></option>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
+          </div>
+        </div>
       <input type="submit" value="点击添加">
     </form>
   </div>

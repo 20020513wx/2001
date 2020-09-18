@@ -4,7 +4,7 @@
 
 <!-- class="layui-form" -->
 <div style="padding: 15px;">
-    <form>
+    <form action="{{url('admin/role/menu')}}">
         搜索角色名称<input type="text" name="role_name" value="{{$role_name}}">
         <input type="submit" value="搜索">
     </form>
@@ -35,6 +35,7 @@
                 </td>
                 <td>{{$v->role_desc}}</td>
                 <td>
+                    <button><a href="{{url('admin/role/menu/'.$v->role_id)}}">点击添加权限</a></button>
                     <button><a href="{{url('admin/role/edit/'.$v->role_id)}}">点击去修改</a></button>
                     <button><a href="{{url('admin/role/delete/'.$v->role_id)}}">点击删除</a></button>
                 </td>

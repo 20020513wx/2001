@@ -19,17 +19,6 @@
           <input type="text" name="role_desc" lay-verify="title" autocomplete="off" placeholder="请输入角色内容" class="layui-input">
         </div>
       </div>
-      <div class="layui-form-item">
-          <label class="layui-form-label">添加权限</label>
-          <div class="layui-input-block">
-            <select name="parent_id" lay-filter="aihao">
-              <option value="0">顶级权限</option>
-              @foreach($menu as $k=>$v)
-              <option value="{{$v->menu_id}}">{{str_repeat('|--',$v->level)}}{{$v->menu_name}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
       <input type="submit" value="点击添加">
     </form>
   </div>
