@@ -41,53 +41,41 @@
   
   <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
-      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item">
-          <a href="javascript:;">商品</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('/')}}">商品列表</a></dd>
-            <dd><a href="{{url('admin/goods/create')}}">商品添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">品牌</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/brand/index')}}">品牌列表</a></dd>
-            <dd><a href="{{url('admin/brand/create')}}">品牌添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">分类</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/category/index')}}">分类列表</a></dd>
-            <dd><a href="{{url('admin/category/create')}}">分类添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">管理员管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/admin/index')}}">管理员列表</a></dd>
-            <dd><a href="{{url('admin/admin/create')}}">管理员添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">角色管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/role/index')}}">角色列表</a></dd>
-            <dd><a href="{{url('admin/role/create')}}">角色添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">菜单</a>
-          <dl class="layui-nav-child">
-            <dd><a href="{{url('admin/menu/index')}}">权限列表</a></dd>
-            <dd><a href="{{url('admin/menu/create')}}">权限添加</a></dd>
-          </dl>
-        </li>
+        @php $name = Route::currentRouteName(); @endphp
+          <li class="layui-nav-item">
+            <a href="{{url('/')}}">首页</a>
+          </li>
+        
+        @if(isset($navInfo))
+     
+          @foreach($navInfo as $v)
+   
+            <li @if(strpos($name,$v['urls'])!==false)class="layui-nav-item layui-nav-itemed" @else class="layui-nav-item" @endif>
+              <a href="javascript:;">{{$v['menu_name']}}</a>
+              @if($v['son'])
+            
+                <dl class="layui-nav-child">
+                  @foreach($v['son'] as $vv)
+               
+                    <dd @if($name == $vv['urls'])class="layui-this" @endif>
+                    
+                      <a href="{{$vv['url']}}">
+                        {{$vv['menu_name']}}
+                      </a>
+                      
+                    </dd>
+                  @endforeach
+                </dl>
+
+                @endif
+            </li>
+          @endforeach
+        @endif
       </ul>
     </div>
   </div>
+  
   
   <div class="layui-body">
     <!-- 内容主体区域 -->

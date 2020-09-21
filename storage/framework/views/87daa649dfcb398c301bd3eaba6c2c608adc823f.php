@@ -41,53 +41,42 @@
   
   <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
-      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item">
-          <a href="javascript:;">商品</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('/')); ?>">商品列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/goods/create')); ?>">商品添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">品牌</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('admin/brand/index')); ?>">品牌列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/brand/create')); ?>">品牌添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">分类</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('admin/category/index')); ?>">分类列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/category/create')); ?>">分类添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">管理员管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('admin/admin/index')); ?>">管理员列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/admin/create')); ?>">管理员添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">角色管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('admin/role/index')); ?>">角色列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/role/create')); ?>">角色添加</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">菜单</a>
-          <dl class="layui-nav-child">
-            <dd><a href="<?php echo e(url('admin/menu/index')); ?>">权限列表</a></dd>
-            <dd><a href="<?php echo e(url('admin/menu/create')); ?>">权限添加</a></dd>
-          </dl>
-        </li>
+        <?php $name = Route::currentRouteName(); ?>
+          <li class="layui-nav-item">
+            <a href="<?php echo e(url('/')); ?>">首页</a>
+          </li>
+        
+        <?php if(isset($navInfo)): ?>
+     
+          <?php $__currentLoopData = $navInfo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+   
+            <li <?php if(strpos($name,$v['urls'])!==false): ?>class="layui-nav-item layui-nav-itemed" <?php else: ?> class="layui-nav-item" <?php endif; ?>>
+              <a href="javascript:;"><?php echo e($v['menu_name']); ?></a>
+              <?php if($v['son']): ?>
+            
+                <dl class="layui-nav-child">
+                  <?php $__currentLoopData = $v['son']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+               
+                    <dd <?php if($name == $vv['urls']): ?>class="layui-this" <?php endif; ?>>
+                    
+                      <a href="<?php echo e($vv['url']); ?>">
+                        <?php echo e($vv['menu_name']); ?>
+
+                      </a>
+                      
+                    </dd>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </dl>
+
+                <?php endif; ?>
+            </li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
       </ul>
     </div>
   </div>
+  
   
   <div class="layui-body">
     <!-- 内容主体区域 -->

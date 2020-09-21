@@ -73,7 +73,7 @@ class GoodsController extends Controller
 //        dd($data);
         $res = Goods::create($data);
         if($res){
-            return redirect('/admin/goods');
+            return redirect('/admin/goods/index');
         }
     }
     /**
@@ -87,9 +87,9 @@ class GoodsController extends Controller
         $goods_id = $request->goods_id;
         $res = Goods::where('goods_id',$goods_id)->update(['is_del'=>2]);
         if($res){
-            return json_encode(['code'=>00000,'msg'=>'删除成功','url'=>'/admin/goods']);
+            return json_encode(['code'=>00000,'msg'=>'删除成功','url'=>'/admin/goods/index']);
         }else{
-            return json_encode(['code'=>00001,'msg'=>'删除失败','url'=>'/admin/goods']);
+            return json_encode(['code'=>00001,'msg'=>'删除失败','url'=>'/admin/goods/index']);
         }
     }
     /**
@@ -148,7 +148,7 @@ class GoodsController extends Controller
 //        dd($data);
         $res = Goods::where('goods_id',$id)->update($data);
         if($res!==false){
-            return redirect('/admin/goods');
+            return redirect('/admin/goods/index');
         }else{
             return redirect('admin/goods/edit/'.$id);
         }
@@ -164,5 +164,9 @@ class GoodsController extends Controller
             return json_encode(['code'=>00000,'msg'=>'上传成功','store_result'=>$store_result]);
         }
         return json_encode(['code'=>00001,'msg'=>'上传失败']);
+    }
+    //主页
+    public function main(){
+        return view("admin.goods.main");
     }
 }
